@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <script src="https://unpkg.com/vue@2.5.17"></script>
-<main id="main">
-    <fruits-list></fruits-list>
+<div id="fruits-list">
+    <div>
+        <fruits-list-title></fruits-list-title>
+    </div>
+</div>
+<div id="other">
+    <!--親が違うので展開されない-->
     <fruits-list-title></fruits-list-title>
-</main>
+</div>
 <script>
-    var FruitsListTitle = Vue.extend({
-        template: '<h1>フルーツ一覧</h1>'
-    })
-
-    new FruitsListTitle().$mount('fruits-list')
-    Vue.component('fruits-list-title', FruitsListTitle)
     new Vue({
-        el: '#main'
+        el: '#fruits-list',
+        components: {
+            'fruits-list-title': {
+                template: '<h1>フルーツ一覧</h1>'
+            }
+        }
     })
 </script>
