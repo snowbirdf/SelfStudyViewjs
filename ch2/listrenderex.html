@@ -3,7 +3,7 @@
 <script src="https://unpkg.com/vue@2.5.17"></script>
 <div id ="app">
    <ul>
-       <li v-for="item in arr" v-bind:key="item">{{ item}}</li>
+       <li v-for="(item, index) in arr" v-bind:key="item">{{index}} {{ item }}</li>
    </ul>
 </div>
 
