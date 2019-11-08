@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<title>リストレンダリングの例</title>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+<div id ="app">
+   <ul>
+       <li v-for="item in arr" v-bind:key="item">{{ item}}</li>
+   </ul>
+</div>
+
+<script>
+    var arrayIroha = ['い','ろ','は']
+    new Vue ({
+        el: '#app',
+        data: {
+            arr: arrayIroha,
+        }
+    })
+</script>
