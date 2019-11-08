@@ -41,9 +41,10 @@ var vm = new Vue ({
       canBuy: function() {
           return this.totalPrice >= 1000
       },
-      errorMessageClass: function() {
+      errorMessageStyle: function() {
           return {
-            error: !this.canBuy
+            border: this.canBuy ? '' : '1px solid red',
+            color: this.canBuy ? '' : 'red'
           }
       }
   }
