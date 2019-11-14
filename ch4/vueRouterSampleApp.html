@@ -60,6 +60,21 @@
     </div>
 </script>
 
+<script type="text/x-template" id="login">
+    <div>
+        <h2>Login</h2>
+        <p v-if="$route.query.redirect">
+            ログインしてください
+        </p>
+        <form @submit.prevent="login">
+            <label><input v-model="email" placeholder="email"></label>
+            <label><input v-model="pass" placeholder="password" type="password"> </label></br>
+            <button type="submit">ログイン</button>
+            <p v-if="error" class="error">ログインに失敗しました</p>
+        </form>
+    </div>
+</script>
+
 <script>
     //vue coding
 
@@ -77,11 +92,34 @@
             },
             {
                 path: '/users/new',
-                component: UserCreate
+                component: UserCreate,
+                beforeEnter: function (to, from, next) {
+                    // 認証されていない場合はlogin
+                    if (!Auth.loggedIn()) {
+                        next({
+                            path: '/login',
+                            query: { redirect: to.fullPath }
+                        })
+                    } else {
+                        // 認証済みはユーザー作成ページへ
+                        next()
+                    }
+                }
             },
             {
                 path: '/users/:userId',
                 component: UserDetail
+            },
+            {
+                path: '/login',
+                component: Login
+            },
+            {
+                path: '/logout',
+                beforeEnter: function (to, from, next) {
+                    Auth.logout(),
+                        next('/')
+                }
             }
         ]
     })
@@ -234,20 +272,49 @@
         }
     }
 
-    var router = new VueRouter({
-        routes: [
-            {
-                path: '/top',
-                component: {
-                    template: '<div>トップページです</div>'
+    var Auth = {
+        login: function (email, pass, cb) {
+            setTimeout(function () {
+                if (email === 'vue@example.com' && pass === 'vue') {
+                    localStrage.token = Math.random().toString(36).substring(7)
+                    if (cb) {
+                        cb(true)
+                    }
+                } else {
+                    if (cb) { cb(false) }
                 }
-            },
-            {
-                path: '/users',
-                component: UserList
+            }, 0)
+        },
+        logout: function () {
+            delete localStage.token
+        },
+        loggedIn: function () {
+            return !!localStrage.token
+        }
+    }
+
+    var Login = {
+        template: '#login',
+        data: function () {
+            return {
+                email: 'vue@example.com',
+                pass: '',
+                error: false
             }
-        ]
-    })
+        },
+        methods: {
+            login: function () {
+                Auth.login(this.email, this.pass, (function (loggedIn) {
+                    if (!loggedIn) {
+                        this.error = true
+                    } else {
+                        //redirectパラメータがついている場合はそのパスに遷移
+                        this.$router.replace(this.$route.query.redirect || '/')
+                    }
+                }).bind(this))
+            }
+        }
+    }
 
     var app = new Vue({
         router: router
