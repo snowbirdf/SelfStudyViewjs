@@ -279,7 +279,7 @@
         login: function (email, pass, cb) {
             setTimeout(function () {
                 if (email === 'vue@example.com' && pass === 'vue') {
-                    localStrage.token = Math.random().toString(36).substring(7)
+                    localStorage.token = Math.random().toString(36).substring(7)
                     if (cb) {
                         cb(true)
                     }
@@ -292,7 +292,7 @@
             delete localStage.token
         },
         loggedIn: function () {
-            return !!localStrage.token
+            return !!localStorage.token
         }
     }
 
