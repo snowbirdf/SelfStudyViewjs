@@ -2,23 +2,159 @@
 <title>Vue.jsのサンプルアプリケーション</title>
 <style>
 </style>
-<nav>
-    <router-link to="/top">トップページ</router-link>
-    <router-link to="/users">ユーザー一覧ページ</router-link>
-    <router-view></router-view>
-</nav>
+<div id="app">
+    <nav>
+        <router-link to="/top">トップページ</router-link>
+        <router-link to="/users">ユーザー一覧ページ</router-link>
+        <router-view></router-view>
+    </nav>
+</div>
 <script src="https://unpkg.com/vue@2.5.17"></script>
 <script src="https://unpkg.com/vue-router@3.0.1"></script>
 
 <!--template description-->
 <script type="text/x-template" id="user-list">
-    <div>ユーザー一覧ページです</div>
+    <div>
+        <div class="loading" v-if="loading">読込中...</div>
+        <div v-if="error" class="error">
+            {{error}}
+        </div>
+        <div v-for="user in users" :key="user.id">
+            <h2>{{ user.name }}</h2>
+        </div>ユーザー一覧ページです</div>
+</script>
+
+<script type="text/x-template" id="user-detail">
+    <div>
+        <div class="loading" v-if="loading">読込中...</div>
+        <div v-if="erro" class="error">
+            {{error}}
+        </div>
+        <div v-if="user">
+            <h2>{{ user.name}}</h2>
+            <p>{{user.description}}</p>
+        </div>
+    </div>
 </script>
 
 <script>
     //vue coding
+
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/top',
+                component: {
+                    template: '<div>トップページです</div>'
+                }
+            },
+            {
+                path: '/users',
+                component: UserList
+            },
+            {
+                path: '/users/:userId',
+                component: UserDetail
+            }
+        ]
+    })
+
+    var userData = [
+        {
+            id: 1,
+            name: 'Takuya Tajima',
+            description: '東南アジアで働くエンジニアです'
+        },
+        {
+            id: 2,
+            name: 'Yohei Noda',
+            description: 'アウトドア・フットサルが趣味のエンジニアです。'
+        }
+    ]
+
+    var getUser = function (userId, callback) {
+        setTimeout(function () {
+            var filteredUsers = userData.filter(function (user) {
+                return user.id === parseInd(userid, 10)
+            })
+            callback(null, filteredUsers && filteredUsers[0])
+        }, 1000)
+    }
+
+    var UserDetail = {
+        template: '#user-detail',
+        data: function () {
+            return {
+                loading: false,
+                user: null,
+                error: null
+            }
+        },
+        created: function () {
+            this.fetchData()
+        },
+        watch: {
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData: function () {
+                this.loading = true
+                getUser(this.$route.params.userId, (function (err, user) {
+                    this.loading = false
+                    if (err) {
+                        this.error = err.toString()
+                    } else {
+                        this.user = User
+                    }
+                }).bind(this))
+            }
+        }
+    }
+
+    var getUsers = function (callback) {
+        setTimeout(function () {
+            callback(null, [
+                {
+                    id: 1,
+                    name: 'Takuya Tajima'
+                },
+                {
+                    id: 2,
+                    name: 'Yohei Noda'
+                }
+            ])
+        }, 1000)
+    }
+
     var UserList = {
         template: "#user-list",
+        data: function () {
+            return {
+                loading: false,
+                users: function () { return [] },
+                error: null
+            }
+        },
+        created: function () {
+            this.fetchData()
+        },
+        watch: {
+            '$route': 'fetchData'
+        },
+        methods:
+        {
+            fetchData: function () {
+                this.loading = true
+                getUsers((function (err, users) {
+                    this.loading = false
+                    if (err) {
+                        this.error = err.toString()
+                    } else {
+                        this.users = users
+                    }
+                }).bind(this))
+            }
+        }
     }
 
     var router = new VueRouter({
