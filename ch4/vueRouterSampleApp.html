@@ -71,7 +71,7 @@
         </p>
         <form @submit.prevent="login">
             <label><input v-model="email" placeholder="email"></label>
-            <label><input v-model="pass" placeholder="password" type="password"> </label></br>
+            <label><input v-model="pass" placeholder="password" type="password"> </label><br>
             <button type="submit">ログイン</button>
             <p v-if="error" class="error">ログインに失敗しました</p>
         </form>
