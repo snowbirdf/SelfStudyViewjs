@@ -10,7 +10,7 @@
     <div id="app">
         <router-link to="/top">トップページ</router-link>
         <router-link to="/users">ユーザー一覧ページ</router-link>
-        <router-link to="/user/123">ユーザー123のページです</router-link>
+        <router-link :to="{name: 'user', params:{userId: 123}}">ユーザー123のページです</router-link>
         <router-view></router-view>
     </div>
     <script src="https://unpkg.com/vue@2.5.17">
@@ -33,6 +33,7 @@
                 },
                 {
                     path: '/user/:userId',
+                    name: 'user',
                     component: {
                         template: '<div>ユーザーIDは{{ $route.params.userId }} です</div>'
                     }
