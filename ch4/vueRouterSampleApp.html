@@ -23,7 +23,7 @@
             {{error}}
         </div>
         <div v-for="user in users" :key="user.id">
-            <h2>{{ user.name }}</h2>
+            <router-link :to="{path: '/users/' + user.id}">{{user.name}}</router-link>
         </div>ユーザー一覧ページです</div>
 </script>
 
@@ -90,20 +90,21 @@
                         cb(true)
                     }
                 } else {
-                    if (cb) { cb(false) }
+                    if (cb) {
+                        cb(false)
+                    }
                 }
             }, 0)
         },
         logout: function () {
-            delete localStage.token
+            delete localStorage.token
         },
         loggedIn: function () {
             return !!localStorage.token
         }
     }
 
-    var userData = [
-        {
+    var userData = [{
             id: 1,
             name: 'Takuya Tajima',
             description: '東南アジアで働くエンジニアです'
@@ -126,7 +127,7 @@
     var getUser = function (userId, callback) {
         setTimeout(function () {
             var filteredUsers = userData.filter(function (user) {
-                return user.id === parseInd(userid, 10)
+                return user.id === parseInt(userId, 10)
             })
             callback(null, filteredUsers && filteredUsers[0])
         }, 1000)
@@ -168,7 +169,9 @@
         data: function () {
             return {
                 loading: false,
-                users: function () { return [] },
+                users: function () {
+                    return []
+                },
                 error: null
             }
         },
@@ -178,8 +181,7 @@
         watch: {
             '$route': 'fetchData'
         },
-        methods:
-        {
+        methods: {
             fetchData: function () {
                 this.loading = true
                 getUsers((function (err, users) {
@@ -217,7 +219,7 @@
                     if (err) {
                         this.error = err.toString()
                     } else {
-                        this.user = User
+                        this.user = user
                     }
                 }).bind(this))
             }
@@ -233,7 +235,7 @@
                 error: null
             }
         },
-        created: function () { },
+        created: function () {},
         methods: {
             defaultUser: function () {
                 return {
@@ -267,8 +269,7 @@
     }
 
     var router = new VueRouter({
-        routes: [
-            {
+        routes: [{
                 path: '/top',
                 component: {
                     template: '<div>トップページです</div>'
@@ -286,7 +287,9 @@
                     if (!Auth.loggedIn()) {
                         next({
                             path: '/login',
-                            query: { redirect: to.fullPath }
+                            query: {
+                                redirect: to.fullPath
+                            }
                         })
                     } else {
                         // 認証済みはユーザー作成ページへ
