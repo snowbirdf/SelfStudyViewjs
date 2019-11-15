@@ -12,6 +12,16 @@ var MyButton = {
 
 new Vue({
     el: '#app',
+    render: function (createElement) {
+        return createElement('my-button', {
+            attrs: {
+                href: 'https://vuejs.org',
+                props: {
+                    tag: 'a'
+                }
+            }
+        }, 'anchor')
+    },
     components: {
         MyButton: MyButton
     }
