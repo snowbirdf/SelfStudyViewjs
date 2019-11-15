@@ -13,7 +13,7 @@ var MyButton = {
 new Vue({
     el: '#app',
     render: function (createElement) {
-        return createElement('my-button', {
+        return createElement(MyButton, {
             attrs: {
                 href: 'https://vuejs.org',
                 props: {
