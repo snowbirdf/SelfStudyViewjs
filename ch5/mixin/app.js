@@ -5,6 +5,9 @@ var Sharable = {
             _isProcessing: false
         }
     },
+    created: function () {
+        console.log('Sharableミックスインのフックが呼ばれました')
+    },
     methods: {
         share: function () {
             if (this._isProcessing) {
@@ -24,6 +27,9 @@ var Sharable = {
 
 var IconShareButton = {
     mixins: [Sharable],
+    created: function () {
+        console.log('IconShareButtonのフックが呼ばれました')
+    },
     template: `
         <button @click="share"><i class="fas fa-share-square"</i></button>
     `,
@@ -31,6 +37,9 @@ var IconShareButton = {
 
 var TextShareButton = {
     mixins: [Sharable],
+    created: function () {
+        console.log('TextShareButtonのフックが呼ばれました')
+    },
     template: `
         <button @click="share">{{buttonLabel}}</button>
     `,
