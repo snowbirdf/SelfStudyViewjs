@@ -48,6 +48,11 @@ var TextShareButton = {
             buttonLabel: 'シェアする'
         }
     },
+    methods: {
+        share() {
+            window.alert('コンポーネントからシェアしました')
+        }
+    }
 }
 
 new Vue({
