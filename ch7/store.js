@@ -15,15 +15,17 @@ const store = new Vuex.Store({
     },
 
     mutations: {
-        increment(state, amount) {
-            state.count += cmount
+        increment(state, payload) {
+            state.count = state.count + payload.amount
         }
     }
 })
 
 console.log(store.state.count)
 
-store.commit('increment', 1)
+store.commit('increment', {
+    amount: 5
+})
 
 console.log(store.state.count)
 
