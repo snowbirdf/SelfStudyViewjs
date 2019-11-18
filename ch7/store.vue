@@ -1,32 +1,52 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+<template>
+  <div id="app">
+    <p>カウント:{{count}}</p>
+  </div>
+</template>
+    
 
-Vue.use(Vuex)
+<script>
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    state: {
-        const: 10
-    },
+  state: {
+    count: 10
+  },
 
-    getters: {
-        squared: (state) => state.count * state.count,
+  getters: {
+    plane: state => state.count,
 
-        cubed: (state, getters) => state.count * getters.squared
-    },
+    squared: state => state.count * state.count,
 
-    mutations: {
-        increment(state, payload) {
-            state.count = state.count + payload.amount
-        }
+    cubed: (state, getters) => state.count * getters.squared
+  },
+
+  mutations: {
+    increment(state, payload) {
+      state.count = state.count + payload.amount;
     }
-})
+  }
+});
 
-console.log(store.state.count)
+// eslint-disable-next-line no-console
+console.log(store.state.count);
 
-store.commit('increment', {
-    amount: 5
-})
+store.commit("increment", {
+  amount: 5
+});
 
-console.log(store.state.count)
-
-console.log(store.getters.cubed)
+// eslint-disable-next-line no-console
+console.log(store.state.count);
+// eslint-disable-next-line no-console
+console.log(store.getters.cubed);
+export default {
+  data() {
+    return {
+      count: store.plane
+    };
+  }
+};
+</script>
