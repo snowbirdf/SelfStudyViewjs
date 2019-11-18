@@ -10,7 +10,7 @@ export default {
 };
 </script>>
 
-<style>
+<style scoped>
 .message {
   color: #42b983;
 }
