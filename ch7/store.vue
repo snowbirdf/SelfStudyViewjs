@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <p>カウント:{{count}}</p>
+    <button @click="store.mutaionts.increment">countup</button>
   </div>
 </template>
     
@@ -28,6 +29,12 @@ const store = new Vuex.Store({
     increment(state, payload) {
       state.count = state.count + payload.amount;
     }
+  },
+
+  actions: {
+    incrementAction(ctx) {
+      ctx.commit("increment");
+    }
   }
 });
 
@@ -42,6 +49,15 @@ store.commit("increment", {
 console.log(store.state.count);
 // eslint-disable-next-line no-console
 console.log(store.getters.cubed);
+
+// eslint-disable-next-line no-console
+console.log(store.state.count);
+
+store.dispatch("incrementAction");
+
+// eslint-disable-next-line no-console
+console.log(store.state.count);
+
 export default {
   data() {
     return {
