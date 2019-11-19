@@ -12,6 +12,28 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+function getCountNum(type) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      let amount;
+      switch (type) {
+        case "one":
+          amount = 1;
+          break;
+        case "two":
+          amount = 2;
+          break;
+        case "ten":
+          amount = 10;
+          break;
+        default:
+          amount = 0;
+      }
+      resolve({ amount });
+    }, 1000);
+  });
+}
+
 const store = new Vuex.Store({
   state: {
     count: 10
