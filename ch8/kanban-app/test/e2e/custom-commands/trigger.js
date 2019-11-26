@@ -10,4 +10,4 @@ exports.command = function (selector, event, keyCode) {
     },
     [selector, event, keyCode]
   )
-}
+};
