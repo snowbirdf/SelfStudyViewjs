@@ -1,5 +1,5 @@
 exports.command = function (selector, value) {
-    return this.clearValue(selector)
-        .setValue(selector, value)
-        .trigger(selector, 'keyup', 13)
+  return this.clearValue(selector)
+    .setValue(selector, value)
+    .trigger(selector, 'keyup', 13)
 }
