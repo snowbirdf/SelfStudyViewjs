@@ -1,16 +1,21 @@
 <template>
-  <button :class="classes" :disabled="disabled" type="button" @click="handleClick">
+  <button
+    :class="classes"
+    :disabled="disabled"
+    type="button"
+    @click="handleClick"
+  >
     <slot />
   </button>
 </template>
 
 <script>
 export default {
-  name: "KbnBuutton",
+  name: 'KbnBuutton',
   props: {
     type: {
       type: String,
-      default: "button"
+      default: 'button'
     },
     disabled: {
       type: Boolean,
@@ -19,18 +24,18 @@ export default {
   },
 
   computed: {
-    classes() {
-      const cls = this.type === "text" ? "-" + this.type : "";
-      return ["kbn-button${cls}"];
+    classes () {
+      const cls = this.type === 'text' ? '-' + this.type : ''
+      return [`kbn-button${cls}`]
     }
   },
 
   methods: {
-    handleClick(ev) {
-      this.$emit("click", ev);
+    handleClick (ev) {
+      this.$emit('click', ev)
     }
   }
-};
+}
 </script>
 
 <style scoped>
