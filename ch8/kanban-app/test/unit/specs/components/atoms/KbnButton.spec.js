@@ -73,7 +73,7 @@ describe('KbnBUtton', () => {
     describe('コンテンツ挿入あり', () => {
       it('挿入されていること', () => {
         const button = mount(KbnButton, {
-          slots: {default: '(<p>hello</p>'}
+          slots: {default: '<p>hello</p>'}
         })
         expect(button.text()).to.equal('hello')
       })
