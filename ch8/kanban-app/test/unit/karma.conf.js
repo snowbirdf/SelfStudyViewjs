@@ -5,7 +5,7 @@
 
 var webpackConfig = require('../../build/webpack.test.conf')
 
-module.exports = function karmaConfig(config) {
+module.exports = function karmaConfig (config) {
   config.set({
     // to run in additional browsers:
     // 1. install corresponding karma launcher
@@ -14,7 +14,7 @@ module.exports = function karmaConfig(config) {
     browsers: ['PhantomJS'],
     frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
     reporters: ['spec', 'coverage'],
-    files: ['../../.node_modules/es6-promise/dist/es6-promise.auto.js',
+    files: ['../../node_modules/es6-promise/dist/es6-promise.auto.js',
       './index.js'
     ],
     preprocessors: {
