@@ -91,7 +91,7 @@ export default {
 
     valid () {
       const validation = this.validation
-      const fields = Object.key(validation)
+      const fields = Object.keys(validation)
       let valid = true
       for (let i = 0; i < fields.length; i++) {
         const field = fields[i]
