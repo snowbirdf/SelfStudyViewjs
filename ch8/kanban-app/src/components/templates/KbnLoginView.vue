@@ -2,12 +2,12 @@
   <div class="login-view">
     <h1>Kanban App</h1>
     <KbnLoginForm
-      :onlogin="handle-login" />
+      :onlogin="handleLogin" />
   </div>
 </template>
 
 <script>
-import KbnLoginForm from '@/components/molescules/KbnLoginForm.vue'
+import KbnLoginForm from '@/components/molecules/KbnLoginForm.vue'
 export default {
   name: 'KbnLoginView',
 
