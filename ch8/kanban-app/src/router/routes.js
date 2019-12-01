@@ -1,6 +1,6 @@
-import KbnBordView from '@/components/templates/KbnBordView.vue'
+import KbnBordView from '@/components/templates/KbnBoardView.vue'
 import KbnLoginView from '@/components/templates/KbnLoginView.vue'
-import KbnTaskDetailView from '@/components/templates/KbnTaskDetailView.vue'
+import KbnTaskDetailView from '@/components/templates/KbnTaskDetailModal.vue'
 
 export default [{
   path: '/',
