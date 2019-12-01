@@ -8,11 +8,11 @@ export default [{
   meta: {requiresAuth: true}
 }, {
   path: '/login',
-  components: KbnLoginView,
+  component: KbnLoginView,
   meta: {requiresAuth: false}
 }, {
   path: 'tasks/:id',
-  components: KbnTaskDetailView,
+  component: KbnTaskDetailView,
   meta: {requiresAuth: true}
 }, {
   path: '*',
