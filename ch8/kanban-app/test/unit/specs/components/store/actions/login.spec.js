@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import * as types from '@/store/mutaiont-types'
+import * as types from '@/store/mutation-types'
 
 const mockLoginAction = login => {
-  const actionsInjector = require('inject-loader!@store/actions')
+  const actionsInjector = require('inject-loader!@/store/actions')
 
   const actionsMocks = actionsInjector({
     '../api': {
-      Auth: {login}
+      Auth: { login }
     }
   })
 
@@ -29,7 +29,7 @@ describe('loginアクション', () => {
       commit = sinon.spy()
 
       future = action({ commit }, { address, password })
-      Vue.nextTick(done)
+      future.then(() => done())
     })
 
     it('成功となること', () => {
@@ -47,7 +47,7 @@ describe('loginアクション', () => {
       commit = sinon.spy()
 
       future = action({ commit })
-      Vue.nextTick(done)
+      future.catch(() => done())
     })
 
     it('失敗となること', done => {
